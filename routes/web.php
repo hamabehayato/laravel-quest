@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'UsersController@index');
 
 //ユーザ登録ページ
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
@@ -26,3 +24,13 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login.post');
 //ログアウト
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+//usersコントローラ
+//resource = 短縮形。複数のルートが出来てる
+Route::resource('users', 'UsersController', ['only' => ['show']]);
+
+//Moviesコントローラ
+//'middleware' => 'auth' ログインを通っている場合のみ、アクセスできる
+Route::group(['middleware' => 'auth'], function () {
+    Route::resource('movies', 'MoviesController', ['only' => ['create', 'store', 'destroy']]);
+});
