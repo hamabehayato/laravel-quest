@@ -4,9 +4,9 @@
 
         @if ($loop->iteration % 3 == 1 && $loop->iteration != 1)
             
-            </div>
-
-            <div class="row text-center mt-3">
+            @php
+                echo '</div><div class="row text-center mt-3">';
+            @endphp
 
         @endif
 
@@ -27,6 +27,12 @@
                                 {{ $movie->commnet }}
                             @endif
                         </p>
+
+                        @if(Auth::id() == $movie->user_id)
+                            {!! Form::open(['route' => ['movies.destroy', $movie->id], 'method' => 'delete']) !!}
+                                {!! Form::submit('この動画を削除する？', ['class' => 'button btn btn-danger']) !!}
+                            {!! Form::close() !!}
+                        @endif
 
                     </div>
 
