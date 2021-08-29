@@ -18,7 +18,7 @@ class CreateMoviesTable extends Migration
             $table->increments('id');
             //動画を登録したユーザのID
             //unsingned=マイナスの値は保持できなくなる index=index() が付けられたカラムのみを抽出できる
-            $table->integer('user_id')->unsingned()->index();
+            $table->integer('user_id')->unsigned()->index();
             //youtube動画のURL
             $table->string('url');
             //動画に添えるコメント
