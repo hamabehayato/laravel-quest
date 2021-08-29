@@ -25,12 +25,15 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 //ログアウト
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-//usersコントローラ
+//usersルーティング
 //resource = 短縮形。複数のルートが出来てる
 Route::resource('users', 'UsersController', ['only' => ['show']]);
 
-//Moviesコントローラ
+//groupルーティング
 //'middleware' => 'auth' ログインを通っている場合のみ、アクセスできる
 Route::group(['middleware' => 'auth'], function () {
+    //rename
+    Route::put('users', 'UsersController@rename')->name('rename');
+    // Movieルーティング
     Route::resource('movies', 'MoviesController', ['only' => ['create', 'store', 'destroy']]);
 });
