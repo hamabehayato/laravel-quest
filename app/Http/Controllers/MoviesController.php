@@ -23,12 +23,18 @@ class MoviesController extends Controller
         return view('movies.create', $data);
     }
 
+    //storeアクション
     public function store(Request $request)
     {
 
         $this->validate($request,[
+            'url' => 'required|max:11',
+            'comment' => 'max:36',
+        ]);
+
+        $request->user()->movies()->create([
             'url' => $request->url,
-            'comment' => $request->commnet,
+            'comment' => $request->comment,
         ]);
 
         return back();
