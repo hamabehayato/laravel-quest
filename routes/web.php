@@ -28,12 +28,22 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 //usersルーティング
 //resource = 短縮形。複数のルートが出来てる
 Route::resource('users', 'UsersController', ['only' => ['show']]);
+//フォロー中のユーザー＆フォロワー取得
+Route::group(['prefix' => 'users/{id}'], function() {
+    Route::get('followings', 'UsersController@followings')->name('followings');
+    Route::get('followers', 'UsersController@followers')->name('followers');
+});
 
-//groupルーティング
 //'middleware' => 'auth' ログインを通っている場合のみ、アクセスできる
 Route::group(['middleware' => 'auth'], function () {
     //rename
     Route::put('users', 'UsersController@rename')->name('rename');
+
+    Route::group(['prefix' => 'users/{id}'], function() {
+        Route::post('follow', 'UserFollowController@store')->name('follow');
+        Route::delete('unfollow', 'UserFollowController@destroy')->name('unfollow');
+    });
+
     // Movieルーティング
     Route::resource('movies', 'MoviesController', ['only' => ['create', 'store', 'destroy']]);
 });

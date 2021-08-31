@@ -14,9 +14,13 @@ class Controller extends BaseController
     //ユーザーごとの動画登録数をカウントする(showアクションで使う)
     public function counts($user) {
         $count_movies = $user->movies()->count();
+        $count_followings = $user->followings()->count();
+        $count_followers = $user->followers()->count();
 
         return [
             'count_movies' => $count_movies,
+            'count_followings' => $count_followings,
+            'count_followers' => $count_followers,
         ];
     }
 }
