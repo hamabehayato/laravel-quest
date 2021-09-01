@@ -228,4 +228,7 @@ return [
 
     ],
 
+    //APIキーを読み込ませる
+    'key_name' => env('API_KEY'),
+
 ];

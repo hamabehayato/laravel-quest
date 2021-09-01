@@ -2,7 +2,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-        <a class="navbar-brand" href="/laravel-quest/public">YouTube-Curation</a>
+        <a class="navbar-brand" href="/">YouTube-Curation</a>
 
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#nav-bar">
             <span class="navbar-toggler-icon"></span>
