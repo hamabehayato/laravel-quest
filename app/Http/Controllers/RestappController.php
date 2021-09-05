@@ -45,7 +45,26 @@ class RestappController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //storeアクション。入力フォーム(createアクション)から送られたデータを、ID１のユーザだけが登録出来る
+        $this->validate($request,[
+            'url' => 'required|max:11',
+            'comment' => 'max:36',
+        ]);
+
+        User::find(1)->movies()->create([
+            'url' => $request->url,
+            'comment' => $request->comment,
+        ]);
+
+        $movies = User::find(1)->movies;
+
+        return response()->json(
+            [
+                'movies' => $movies
+            ],
+            200,[],
+            JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT
+        );
     }
 
     /**
