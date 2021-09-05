@@ -34,7 +34,14 @@ class RestappController extends Controller
      */
     public function create()
     {
-        return view('rest.create');
+        $user = User::find(1);
+        $movies = $user->movies;
+
+        $data = [
+            'movies' => $movies,
+        ];
+
+        return view('rest.create', $data);
     }
 
     /**
@@ -75,6 +82,7 @@ class RestappController extends Controller
      */
     public function show($id)
     {
+        //showアクション。ユーザごとの詳細情報を取得できる。
         $user = User::find($id);
         $movies = $user->movies;
         return response()->json(
@@ -117,6 +125,22 @@ class RestappController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //destroyアクション。登録動画の削除。ID１の物のみ出来るようになっている。
+        $movie = Movie::find($id);
+        $user = $movie->user;
+
+        if($user->id == 1) {
+            $movie->delete();
+        }
+
+        $movies = $user->movies;
+
+        return response()->json(
+            [
+                'movies' => $movies
+            ],
+            200,[],
+            JSON_UNESCAPED_UNICODE|JSON_PRETTRY_PRINT
+        );
     }
 }

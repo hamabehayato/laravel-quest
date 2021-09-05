@@ -32,6 +32,18 @@
                     </div>
                 {!! Form::close() !!}
 
+                <h2 class="mt-5 mb-5">動画を削除する</h2>
+ 
+                @foreach ($movies as $key => $movie)
+            
+                    <p>動画ID：{{ $movie->id }}　URL：{{ $movie->url }}　コメント：{{ $movie->comment }}</p>
+            
+                    {!! Form::open(['route' => ['rest.destroy', $movie->id], 'method' => 'delete']) !!}
+                            {!! Form::submit('この動画を削除する？', ['class' => 'button btn btn-danger mb-3']) !!}
+                    {!! Form::close() !!}
+
+                @endforeach
+
         </div>
         
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
