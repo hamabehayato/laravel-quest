@@ -34,6 +34,9 @@ Route::group(['prefix' => 'users/{id}'], function() {
     Route::get('followers', 'UsersController@followers')->name('followers');
 });
 
+//RESTfull API
+Route::resource('rest', 'RestappController', ['only' => ['index', 'show', 'create', 'store', 'destroy']]);
+
 //'middleware' => 'auth' ログインを通っている場合のみ、アクセスできる
 Route::group(['middleware' => 'auth'], function () {
     //rename
